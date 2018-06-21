@@ -8,10 +8,13 @@ JS的单线程也就是说所有的任务都需要按照一定的规则顺序排
 <img src="img/浏览器中的Event Loop.png" title="浏览器中的Event Loop">
 
 * 当主线程运行的时候，JS会产生堆和栈(执行栈)
-* 主线程中调用的webAPI所产生的异步操作(dom事件、ajax回调、定时器等)只要产生结果，
-      就把这个回调塞进“任务队列”中等待执行。
-* 当主线程中的同步任务执行完毕，系统就会依次读取“任务队列”中的任务，将任务放进执行栈中执行。
-* 执行任务时可能还会产生新的异步操作，会产生新的循环，整个过程是循环不断的。
+* 先执行当前栈，执行完主执行线程中的任务，即执行Microtask微任务队列中任务直到清空。
+* 主线程中调用的webAPI所产生的异步操作(dom事件、ajax回调、定时器等)只要产生结果，就把这个回调塞进Macrotask宏任务中等待执行。
+* 取出Macrotask宏任务中 一个 任务执行。
+* 检查Microtask微任务中有没有任务，如果有任务执行直到清空。
+* 重复执行 取出Macrotask宏任务中一个任务执行 和 检查Microtask微任务中有没有任务，有任务就执行。 
+
+整个的这种运行机制又称为Event Loop(事件循环)
 
 从事件环中不难看出当我们调用setTimeout并设定一个确定的时间，
 而这个任务的实际执行时间可能会由于主线程中的任务没有执行完而大于我们设定的时间，
@@ -38,7 +41,17 @@ console.log(5)
 
 ### 宏任务与微任务
 
-任务队列中的微任务（micro-task）优先执行有特权，宏任务（macro-task）则没有特权
+所有同步任务都在主线程上执行，形成一个执行栈主线程之外，还存在一个任务队列。
+任务队列分为macro-task(宏任务)和micro-task(微任务)。
+
+>任务队列中的微任务（micro-task）优先执行有特权，宏任务（macro-task）则没有特权
+
+macro-task(宏任务): setTimeout, setInterval, setImmediate, I/O等
+
+micro-task(微任务): process.nextTick,原生Promise,Object.observe(已废弃), MutationObserver等
+
+(有些实现的promise将then方法放到了宏任务中)
+
 ```javascript
 console.log(1);
 setTimeout(function(){
@@ -65,7 +78,7 @@ Node的首要目标是提供一种简单的，用于创建高性能服务器的�
 
 Web 主要场景就是接收客户端的请求读取静态资源和渲染界面，所以Node非常适合Web应用的开发。
 
-<img src="img/node中的Even Loop.png" title="node中的Even Loop">
+<img src="img/node中的Event Loop.png" title="node中的Event Loop">
 node中的时间循环与浏览器的不太一样
 * timers 阶段: 这个阶段执行setTimeout(callback) and setInterval(callback)预定的callback;
 * I/O callbacks 阶段: 执行除了close事件的callbacks、被timers(定时器，setTimeout、setInterval等)设定的callbacks、setImmediate()设定的callbacks之外的callbacks；
@@ -78,3 +91,15 @@ node中的时间循环与浏览器的不太一样
 当event loop运行到一个指定阶段时，node将执行该阶段的fifo queue(队列)，
 当队列callback执行完或者执行callbacks数量超过该阶段的上限时，event loop会转入下一下阶段。
 
+
+### 总结
+同一个上下文下，MicroTask微任务会比MacroTask宏任务先运行。
+
+浏览器是先取出一个MacroTask宏任务执行，再执行MicroTask微任务中的所有任务。
+
+Node是按照六个阶段执行，每个阶段切换时，再执行MicroTask微任务队列
+
+同个MicroTask队列下process.tick()会优于Promise
+
+setImmdieate()和setTimeout()，如果他们在异步i/o callback之外调用（在i/o内调用因为下一阶段为check阶段），
+其执行先后顺序是不确定的,需要看loop的执行前的耗时情况。
