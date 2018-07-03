@@ -10,7 +10,7 @@
 通俗的讲就是： 1em，就是这个元素上的 font-size 的值，如果元素本身没有设置 font-size ，
 就按照他的父级的 font-size 计算（其实本身的font-size继承了父级的font-size），我们看看代码：
 
-```html
+```
 <style type="text/css">
     .box{font-size:20px; border:1px solid red; overflow:hidden;}
     .box>.con{width:10em; height:10em; background:#000; color:#fff;}
@@ -34,7 +34,7 @@
 在W3C官网上是这样描述 rem 的—— “font size of the root element (根元素的字体大小)” ，
 
 也就是说，rem 是相对于根元素<html>的，还是用上面的例子：
-```html
+```
 <style type="text/css">
     .box{font-size:20px; border:1px solid red; overflow:hidden;}
     .box>.con{width:10rem; height:10rem; background:#000; color:#fff;}
@@ -48,4 +48,7 @@
 ```
 因为网页<html>的默认字体大小是 16px，所以 1rem=16px ，10rem=160px ，所以 con1 跟 con2 的宽高为 160px
 
+## 如何适配各种设备屏幕
 
+
+https://www.jianshu.com/p/bff2ea9ceb2f
