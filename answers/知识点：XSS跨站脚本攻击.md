@@ -184,7 +184,7 @@ const decodingMap = {
 
 Fuzzing（模糊测试）是挖掘漏洞最常用的手段之一，不止是XSS，应该可以说Fuzzing可以用于大部分类型的漏洞挖掘。通俗可以把这种方式理解为不断尝试的过程。
 
-<img src="img/xss挖掘流程图.jpg" title="xss挖掘流程图" />
+<img src="/img/xss挖掘流程图.jpg" title="xss挖掘流程图" />
 
 比较关键的几个点在于：
 
