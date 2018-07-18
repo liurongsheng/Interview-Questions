@@ -122,7 +122,7 @@ alert(dogB.species); // 猫科
 
 以 DOG 为例讲原型链
 
-<img title="原型链">
+<img src="img/原型链_prop_属性1.png" title="原型链_prop_属性" />
 
 红色的箭头就是原型链。
 
@@ -132,17 +132,14 @@ DOG 对象有一个 prototype 对象，而实例对象 dogA 通过一个 `_proto
 
 但是在 DOG.prototype 中还存在一个 `_proto_` 属性，这又是指向谁呢？
 
-
-看图
-
-img
+<img src="img/原型链_prop_属性2.png" title="原型链_prop_属性" />
 
 指向 Object 对象，这样 DOG 对象就拥有 Object 对象中原型属性和方法。比如说 toString() 就在其中。
 
 
 还有一点，那就是 Js 的函数也是对象啊，我们每个创建的函数其实也继承了一个函数对象，而函数则继承了 Object 对象。。
 
-image
+<img src="img/原型链_prop_属性3.png" title="原型链_prop_属性" />image
 
 以上就是一个简单的 Dog 类完整的原型链。
 
