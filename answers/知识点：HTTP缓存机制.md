@@ -3,17 +3,61 @@
 缓存机制无处不在，有客户端缓存，服务端缓存，代理服务器缓存等。在HTTP中具有缓存功能的是浏览器缓存。
 HTTP缓存作为web性能优化的重要手段，对于从事web开发的朋友有重要的意义。
 
+<img src="/img/HTTP缓存机制.png" title="HTTP缓存机制">
+
+
+## HTTP报文的组成
+
+1. 包含属性的首部(header) 附加信息（cookie，缓存信息等）与缓存相关的规则信息，均包含在header中
+1. 包含数据的主体部分(body) HTTP请求真正想要传输的部分
+
+常见的请求头：
+```
+Accept: text/html,image/*                                      #浏览器可以接收的类型
+Accept-Charset: ISO-8859-1                                     #浏览器可以接收的编码类型
+Accept-Encoding: gzip,compress                                 #浏览器可以接收压缩编码类型
+Accept-Language: en-us,zh-cn                                   #浏览器可以接收的语言和国家类型
+Host: www.lks.cn:80                                            #浏览器请求的主机和端口
+If-Modified-Since: Tue, 11 Jul 2000 18:23:51 GMT               #某个页面缓存时间
+Referer: http://www.lks.cn/index.html                          #请求来自于哪个页面
+User-Agent: Mozilla/4.0 compatible; MSIE 5.5; Windows NT 5.0   #浏览器相关信息
+Cookie:                                                        #浏览器暂存服务器发送的信息
+Connection: close1.0/Keep-Alive1.1                             #HTTP请求的版本的特点
+Date: Tue, 11 Jul 2000 18:23:51GMT                             #请求网站的时间
+Allow:GET                                                      #请求的方法 GET 常见的还有POST
+Keep-Alive:5                                                   #连接的时间；5
+Connection:keep-alive                                          #是否是长连接
+Cache-Control:max-age=300                                      #缓存的最长时间 300s
+Accept: text/html,image/*                                      #浏览器可以接收的类型
+Accept-Charset: ISO-8859-1                                     #浏览器可以接收的编码类型
+Accept-Encoding: gzip,compress                                 #浏览器可以接收压缩编码类型
+Accept-Language: en-us,zh-cn                                   #浏览器可以接收的语言和国家类型
+Host: www.lks.cn:80                                            #浏览器请求的主机和端口
+If-Modified-Since: Tue, 11 Jul 2000 18:23:51 GMT               #某个页面缓存时间
+Referer: http://www.lks.cn/index.html                          #请求来自于哪个页面
+User-Agent: Mozilla/4.0 compatible; MSIE 5.5; Windows NT 5.0   #浏览器相关信息
+Cookie:                                                        #浏览器暂存服务器发送的信息
+Connection: close1.0/Keep-Alive1.1                             #HTTP请求的版本的特点
+Date: Tue, 11 Jul 2000 18:23:51GMT                             #请求网站的时间
+Allow:GET                                                      #请求的方法 GET 常见的还有POST
+Keep-Alive:5                                                   #连接的时间；5
+Connection:keep-alive                                          #是否是长连接
+Cache-Control:max-age=300                                      #缓存的最长时间 300s
+```
+
 ## 缓存的规则
 
 浏览器存在一个缓存数据库，用于储存一些不经常变化的静态文件（图片、css、js等）。
 我们将缓存分为强制缓存和协商缓存。下面我将分别详细的介绍这两种缓存的缓存规则。
+
+强制缓存如果生效，不需要再和服务器发生交互，而对比缓存不管是否生效，都需要与服务端发生交互。
 
 ### 强制缓存
 当缓存数据库中已有所请求的数据时。客户端直接从缓存数据库中获取数据。
 当缓存数据库中没有所请求的数据时，客户端的才会从服务端获取数据。
 
 ### 协商缓存
-又称对比缓存，客户端会先从缓存数据库中获取到一个缓存数据的标识，
+又称对比缓存，客户端会先从缓存数据库中获取到一个缓存数据的标识，**不管是否生效，都需要与服务端发生交互**
 得到标识后请求服务端验证是否失效（新鲜），如果没有失效服务端会返回304，
 此时客户端直接从缓存中获取所请求的数据，如果标识失效，服务端会返回更新后的数据。
 
@@ -94,3 +138,4 @@ F5就是告诉浏览器，别偷懒，好歹去服务器看看这个文件是否
 Ctrl+F5告诉浏览器，你先把你缓存中的这个文件给我删了，然后再去服务器请求个完整的资源文件下来。
 于是客户端就完成了强行更新的操作.
 
+[参考来源](https://segmentfault.com/a/1190000010690320)

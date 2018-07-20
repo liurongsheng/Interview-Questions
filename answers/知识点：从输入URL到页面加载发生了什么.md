@@ -17,10 +17,10 @@
 ---
 
 ### DNS解析
-<img src="/dns解析.png" title="dns解析">
+<img src="/img/dns解析.png" title="dns解析">
 
 ### 浏览器解析渲染
-<img src="/浏览器解析渲染过程.png" title="浏览器解析渲染过程">
+<img src="/img/浏览器解析渲染过程.png" title="浏览器解析渲染过程">
 
 浏览器是一个边解析边渲染的过程。
 
@@ -39,7 +39,7 @@ reflow和repain过程是非常消耗性能的，尤其是在移动设备上，�
 所以我们应该尽可能少的减少reflow和repain。
 
 ### js运行引擎
-<img src="/js运行引擎.png" title="js运行引擎">
+<img src="/img/js运行引擎.png" title="js运行引擎">
 
 JS的解析是由浏览器中的JS解析引擎完成的。
 
