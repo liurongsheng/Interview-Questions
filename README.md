@@ -15,12 +15,12 @@
   1. [知识点：从输入URL到页面加载发生了什么](/answers/知识点：从输入URL到页面加载发生了什么.md)
   1. [知识点：EventLoop事件循环机制](/answers/知识点：EventLoop事件循环机制.md)
   1. [知识点：常见构造工具webpack和gulp等](/answers/知识点：常见构造工具webpack和gulp等.md)
-  1. [知识点：visibility hidden和display none的区别](/answers/知识点：visibility hidden和display none的区别.md)
+  1. [知识点："visibility:hidden"和"display:none"的区别](/answers/知识点：visibility hidden和display none的区别.md)
 
 ---
 
 ## 优化目录
-  1. [优化：React 16 加载性能优化指南](/answers/优化：React 16 加载性能优化指南.md)
+  1. [优化：React16加载性能优化指南](/answers/优化：React 16 加载性能优化指南.md)
 
 ---
 
