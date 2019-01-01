@@ -38,3 +38,9 @@ doSomething().then(function(value) {
 });
 ```
 
+1. 初始化，状态：pending
+2. 当调用resolve(成功)，状态：pending=>fulfilled
+3. 当调用reject(失败)，状态：pending=>rejected
+
+reslove(成功时)，调用onFulfilled
+reject(失败时)， 调用Rejected
