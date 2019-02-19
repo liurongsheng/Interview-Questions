@@ -24,17 +24,17 @@ JS的单线程也就是说所有的任务都需要按照一定的规则顺序排
 console.log(1);
 console.log(2);
 setTimeout(function(){
-    console.log(3)
+    console.log(3);
     setTimeout(function(){
         console.log(6);
     })
-},0)
+},0);
 setTimeout(function(){
     console.log(4);
     setTimeout(function(){
         console.log(7);
     })
-},0)
+},0);
 console.log(5)
 ```
 最终我们得到的输出为1，2，5，3，4，6，7。
@@ -59,7 +59,7 @@ setTimeout(function(){
     Promise.resolve(1).then(function(){
         console.log('promise')
     })
-})
+});
 setTimeout(function(){
     console.log(3);
 })
