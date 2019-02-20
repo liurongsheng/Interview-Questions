@@ -17,7 +17,7 @@
   1. [知识点：JavaScript原型及原型链](/answers/知识点：JavaScript原型及原型链.md)
   1. [知识点：常见构造工具webpack和gulp等](/answers/知识点：常见构造工具webpack和gulp等.md)
   1. [知识点：从输入URL到页面加载发生了什么](/answers/知识点：从输入URL到页面加载发生了什么.md)
-  1. [知识点："visibility:hidden"和"display:none"的区别](/answers/知识点：visibility hidden和display none的区别.md)
+  1. [知识点：visibility:hidden和display:none的区别](/answers/知识点：visibility hidden和display none的区别.md)
 
 ---
 
