@@ -36,3 +36,12 @@
 `http-server [path] [options]`
 
 http-server -p 8888
+
+## 网址
+技术月刊 http://xlbd.me
+
+前端体系 https://www.xiaohuochai.site 
+
+flex-box https://flexboxfroggy.com
+
+腾讯云开发文档 https://cloud.tencent.com/developer/doc/1078

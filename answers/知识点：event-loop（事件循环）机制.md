@@ -3,6 +3,53 @@
 JS的单线程也就是说所有的任务都需要按照一定的规则顺序排队执行，
 这个规则就是我们要说明的Event Loop事件环。Event Loop在不同的运行环境下有着不同的方式。
 
+## 宏任务与微任务
+
+所有同步任务都在主线程上执行，形成一个执行栈主线程之外，还存在一个任务队列。
+任务队列分为 macro-task(宏任务) 和 micro-task(微任务)。
+
+>任务队列中的微任务（micro-task）优先执行有特权，宏任务（macro-task）则没有特权
+
+macro-task(宏任务): setTimeout, setInterval, setImmediate, I/O等
+
+micro-task(微任务): process.nextTick, 原生Promise, Object.observe(已废弃), MutationObserver等
+
+原生Promise的then是微任务
+
+```javascript
+console.log(1);
+setTimeout(function(){
+    console.log(2);
+    Promise.resolve(1).then(function(){
+        console.log('promise')
+    })
+});
+setTimeout(function(){
+    console.log(3);
+})
+```
+按照“队列理论”，结果应该为1，2，3，promise
+实际结果输出为1，2，promise，3
+
+```javascript
+setTimeout(()=>{
+   console.log(1) 
+},0);
+let a = new Promise((resolve)=>{
+    console.log(2);
+    resolve()
+}).then(()=>{
+   console.log(3);
+}).then(()=>{
+   console.log(4);
+});
+console.log(5)
+```
+输出为2，5，3，4，1
+
+
+
+
 ### 浏览器环境下的Event Loop
 
 <img src="img/浏览器中的Event Loop.png" title="浏览器中的Event Loop">
@@ -39,33 +86,7 @@ console.log(5)
 ```
 最终我们得到的输出为1，2，5，3，4，6，7。
 
-### 宏任务与微任务
 
-所有同步任务都在主线程上执行，形成一个执行栈主线程之外，还存在一个任务队列。
-任务队列分为macro-task(宏任务)和micro-task(微任务)。
-
->任务队列中的微任务（micro-task）优先执行有特权，宏任务（macro-task）则没有特权
-
-macro-task(宏任务): setTimeout, setInterval, setImmediate, I/O等
-
-micro-task(微任务): process.nextTick,原生Promise,Object.observe(已废弃), MutationObserver等
-
-(有些实现的promise将then方法放到了宏任务中)
-
-```javascript
-console.log(1);
-setTimeout(function(){
-    console.log(2);
-    Promise.resolve(1).then(function(){
-        console.log('promise')
-    })
-});
-setTimeout(function(){
-    console.log(3);
-})
-```
-按照“队列理论”，结果应该为1，2，3，promise。
-实际结果输出为1，2，promise，3。
 
 ### Node环境的Event Loop
 
