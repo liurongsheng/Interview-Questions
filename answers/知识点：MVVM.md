@@ -115,7 +115,7 @@ Model =》 数据绑定 =》 View
 ## vue 如何实现响应式
 - 什么是响应式
   修改 data 属性之后，vue 立刻监听到
-  data 属性被代理到 vm 上
+  将 data 属性被代理到 vm 上
 - 核心函数 Object.defineProperty ，在ES5中加入，兼容 ie9 及以上
 
 模拟实现
@@ -139,7 +139,3 @@ Model =》 数据绑定 =》 View
     obj.name = 'lisi'     // 可以监听到
 </script>    
 ```
-
-## vue 如何理解模板
-
-## 介绍 vue 的整个实现流程

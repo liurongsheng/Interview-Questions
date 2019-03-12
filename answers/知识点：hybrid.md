@@ -241,8 +241,6 @@ iframe.src = 'weixin://dl/scan?k1=v1&k2=v2&callback=_weixin_sacn_callback';  // 
     }
 })(window)
 ```
-
-
 重要步骤：
 ```
 window.invoke.share({title: 'xxx', content:'xxx'}, function(result){
