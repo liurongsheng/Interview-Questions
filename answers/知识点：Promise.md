@@ -1,10 +1,8 @@
 # 知识点：Promise
 
-1. Promise 是具有状态的
-- 处在等待被赋值的等待态（pending）
-- 被给予一个值并转为解决态（resolved）
-
-2. 一旦 promise 被一个值 resolve 掉，其就会一直保持这个值并不会再被 resolve
+- Promise 操作只会处在 3 种状态的一种：未完成态(pending)、完成态(resolved) 和失败态(rejected);
+- Promise 的状态只会出现从 未完成态 向 完成态 或 失败态 转化;
+- Promise 的状态一旦转化，将不能被更改;
 
 ## Promise的executor以及then的执行方式
 Promise 的 executor 是同步的
@@ -16,8 +14,6 @@ Promise 的 executor 是同步的
 ## Promise的then中创建一个Promise
 一个Promise所有的then的回调函数是在一个microtask函数中执行的，
 但是每一个回调函数的执行，又按照情况分为立即执行，微任务(microtask)和宏任务(macrotask)。
-
-
 
 ```
 new Promise((resolve,reject)=>{
