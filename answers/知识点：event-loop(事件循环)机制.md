@@ -47,7 +47,15 @@ console.log(5)
 ```
 输出为2，5，3，4，1
 
-
+如果要定时输出 100 个相同的内容，如何实现
+```
+for(var i=0;i<100;i++)
+{
+	setTimeout(function(){
+		console.log('我是输出！');
+  },1000*i);
+}
+```
 
 
 ### 浏览器环境下的Event Loop
