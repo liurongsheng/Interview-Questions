@@ -44,4 +44,3 @@ __proto__ 作为不同对象之间的桥梁，用来指向创建它的构造函�
 - 一切的函数对象(包括 Object对象)，都是继承自 Function 对象
 - Object 对象直接继承自 Function 对象
 - Function 对象的 _proto_ 会指向自己的原型对象，最终还是继承自 Object 对象
-
