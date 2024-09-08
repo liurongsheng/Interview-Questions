@@ -54,3 +54,7 @@ http-server -p 8888
 [手把手教你 Service Worker](https://mp.weixin.qq.com/s?__biz=Mzg4MTYwMzY1Mw==&mid=2247495063&idx=1&sn=a6785c1f568009671972ea414989bdbb&source=41#wechat_redirect)
 
 [饿了么前端](https://www.zhihu.com/column/ElemeFE)
+
+## 书籍
+
+[前端书籍](https://gitee.com/mewcoder/fe-book)
