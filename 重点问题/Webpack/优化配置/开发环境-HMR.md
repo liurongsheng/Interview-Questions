@@ -3,7 +3,7 @@
 HMR: hot module replacement 热模块替换 / 模块热替换
 作用：一个模块发生变化，只会重新打包这一个模块（而不是打包所有模块），极大提升构建速度
 
-- 样式文件：可以使用 HMR 功能：因为 style-loader 内部实现了，开发环境使用 style-loader 性能更好打包更快
+- css 文件：可以使用 HMR 功能：因为 style-loader 内部实现了，开发环境使用 style-loader 性能更好打包更快
 - js 文件：默认不能使用 HMR 功能 --> 需要修改 js 代码，添加支持 HMR 功能的代码
   注意：HMR 功能对 js 的处理，只能处理非入口 js 文件的其他文件
 - html 文件: 默认不能使用 HMR 功能.同时会导致问题：html 文件不能热更新了~ （不用做 HMR 功能，正常只有一个 html 文件，修改了就是需要变）
