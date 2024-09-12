@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      "use strict";
+
+      function show() {
+        console.log(this);
+      }
+      show(); // 严格模式下，输出 undefined
+      // 全局的东西——都是属于window
+      window.show(); // [object Window]，表示返回了 window 对象
+    </script>
+  </head>
+  <body></body>
+</html>

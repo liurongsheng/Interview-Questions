@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // 真实数据
+      let _data = {
+        a: 12,
+        arr: [1, 2, 3],
+        json: { a: 12, b: 5 },
+      };
+
+      let p = new Proxy(_data, {
+        has(data, name) {
+          //in
+          if (name in data) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+        get(data, name) {
+          //获取
+          if (name in data) {
+            return data[name];
+          } else {
+            throw new Error(`${name} is not defined`);
+          }
+        },
+        set(data, name, val) {
+          //设置
+          console.log("set");
+          data[name] = val;
+        },
+        deleteProperty(data, name) {
+          //处理delete
+          if (name in data) {
+            return delete data[name];
+          } else {
+            throw new Error(`${name} is not defined`);
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

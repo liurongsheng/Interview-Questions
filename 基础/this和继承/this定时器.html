@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      "use strict";
+
+      function show() {
+        console.log(this);
+      }
+
+      setTimeout(show, 100); // [object Window]，表示返回了 window 对象。定时器属于 window 对象的
+    </script>
+  </head>
+  <body></body>
+</html>

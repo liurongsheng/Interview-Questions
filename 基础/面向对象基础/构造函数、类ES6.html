@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // ES6
+      class A {
+        // 类
+        constructor(name, age) {
+          // 构造函数
+          console.log("被创建了");
+
+          // 添加属性
+          this.name = name;
+          this.age = age;
+        }
+
+        show() {
+          console.log(this.name + "," + this.age);
+        }
+      }
+
+      let a = new A("blue", 25);
+
+      console.log(a.name);
+      console.log(a.age);
+
+      a.show();
+    </script>
+  </body>
+</html>

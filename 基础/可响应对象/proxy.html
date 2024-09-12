@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style media="screen">
+      .box {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      class Cmp {
+        constructor(name) {
+          this.name = name;
+
+          this.el = document.createElement("div");
+          this.el.className = "box";
+          document.body.appendChild(this.el);
+
+          this.render();
+        }
+
+        render() {
+          this.el.innerHTML = this.name;
+        }
+      }
+
+      let _cmp = new Cmp("blue");
+      let cmp = new Proxy(_cmp, {
+        set(obj, name, val) {
+          obj[name] = val;
+
+          obj.render();
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // 真实数据
+      class A {}
+
+      let p = new Proxy(A, {
+        apply() {
+          console.log("apply");
+        },
+        // 不叫constructor
+        construct(fn, args) {
+          console.log("new", fn, args);
+
+          return {};
+        },
+      });
+
+      new p(1, 2, 3);
+    </script>
+  </body>
+</html>

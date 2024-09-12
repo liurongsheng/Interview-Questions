@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      class App {
+        constructor(options) {
+          let data = options.data();
+
+          for (let name in data) {
+            if (name == "data") {
+              Object.defineProperty(this, "data", {
+                configurable: true,
+                get() {
+                  for (let name in data.data) {
+                    //test
+                    Object.defineProperty(data.data, "a", {
+                      configurable: true,
+                      get() {
+                        return data.data.a;
+                      },
+                      set(val) {
+                        data.data.a = val;
+
+                        this.render();
+                      },
+                    });
+                  }
+                  return data.data;
+                },
+                set(val) {
+                  data.data = val;
+
+                  this.render();
+                },
+              });
+            } else {
+              Object.defineProperty(this, name, {
+                configurable: true,
+                get() {
+                  return data[name];
+                },
+                set(val) {
+                  data[name] = val;
+
+                  this.render();
+                },
+              });
+            }
+          }
+
+          this._updated = false;
+        }
+
+        //this.arr, 1, 55
+        $set(obj, key, val) {
+          this._updated = false;
+          obj[key] = val;
+
+          if (this._updated == false) {
+            this.render();
+          }
+        }
+
+        render() {
+          console.log("render");
+          this._updated = true;
+        }
+      }
+
+      let app = new App({
+        root: "#div1",
+        data() {
+          return {
+            a: 12,
+            b: 5,
+            name: "blue",
+            arr: [1, 2, 3],
+            data: {
+              a: 12,
+              b: 5,
+            },
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      function show(a, b) {
+        alert("this是：" + this + "\n" + "a：" + a + "\n" + "b：" + b);
+      }
+
+      let show2 = show.bind("aaa");
+
+      show2(22, 55); // this是：aaa，a: 22，b: 55
+    </script>
+  </head>
+  <body></body>
+</html>

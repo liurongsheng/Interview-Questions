@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      class App {
+        constructor(options) {
+          let data = options.data();
+
+          Object.defineProperty(this, "a", {
+            configurable: true,
+            get() {
+              return data.a;
+            },
+            set(val) {
+              data.a = val;
+
+              console.log("有人设置数据了a");
+            },
+          });
+        }
+      }
+
+      let app = new App({
+        root: "#div1",
+        data() {
+          return {
+            a: 12,
+            b: 5,
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

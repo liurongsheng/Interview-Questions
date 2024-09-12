@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      let json = { _a: 10 };
+
+      Object.defineProperty(json, "a", {
+        configurable: true,
+        get() {
+          console.log("get");
+          return json._a;
+        },
+        set(val) {
+          console.log("set", val);
+          json._a = val;
+        },
+      });
+
+      console.log("json.a:", json.a); // 10
+      json.a = 55;
+      console.log("json.a:", json.a); // 55
+    </script>
+  </body>
+</html>

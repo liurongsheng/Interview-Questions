@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // ES5
+      // 构造函数、类
+      function A () {
+        console.log("被创建了");
+
+        // 添加属性
+        this.name = "blue";
+        this.age = 18;
+      }
+
+      A.prototype.show = function () {
+        console.log(this.name + "," + this.age);
+      };
+
+      var a = new A();
+
+      console.log(a.name); // blue
+      console.log(a.age); // 18
+
+      a.show(); // blue,18
+    </script>
+  </body>
+</html>

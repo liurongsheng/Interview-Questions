@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // 真实数据
+      class A {
+        render() {
+          console.log("渲染");
+        }
+      }
+
+      let a = new Proxy(new A(), {
+        set(obj, name, val) {
+          obj[name] = val;
+
+          obj.render();
+        },
+      });
+
+      a.name = "blue";
+    </script>
+  </body>
+</html>

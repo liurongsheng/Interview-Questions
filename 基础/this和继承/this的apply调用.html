@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      function show(a, b) {
+        alert("this是：" + this + "\n" + "a：" + a + "\n" + "b：" + b);
+      }
+
+      // show.call(10, 'aaaa', 'bbbb');
+      show('aaaa', 'cccc'); // tihs是: undefined a：aaaa b：cccc
+
+      show.apply(10, ["aaa", "bbb"]); // tihs是: 10 a：aaa bbb
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      class A {
+        constructor() {
+          this.username = "blue";
+        }
+
+        b() {
+          alert(this.username);
+        }
+      }
+
+      let a = new A();
+      setTimeout(a.b.bind(a), 100);
+    </script>
+  </head>
+  <body></body>
+</html>

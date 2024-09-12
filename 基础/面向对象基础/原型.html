@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      let arr = [1, 2, 3];
+      let arr2 = [1, 2, 3];
+
+      arr.a = 88;
+      Array.prototype.a = "abc";
+
+      alert(arr.a);
+      alert(arr2.a);
+
+      // 输出结果分别为 88 和 'abc'。因为 arr 显式设置了 a 属性，而 arr2 没有显式设置，因此会继承 Array.prototype.a 的值
+    </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+    class A{
+      constructor(name){
+        this.name=name;
+      }
+
+      show(){
+        alert(this.name);
+      }
+    }
+
+    class B extends A{
+      constructor(name, age){
+        //1.继承父类的属性
+        super(name);
+
+        this.age=age;
+      }
+
+      showAge(){
+        alert(this.age);
+      }
+    }
+
+    let b=new B('blue', 18);
+
+    b.show();
+    b.showAge();
+    </script>
+  </body>
+</html>

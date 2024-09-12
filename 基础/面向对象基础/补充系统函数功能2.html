@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+
+  <body>
+    <script>
+      Array.prototype.map =
+        Array.prototype.map ||
+        function (fn) {
+          var result = [];
+          for (var i = 0; i < this.length; i++) {
+            result.push(fn(this[i], i));
+          }
+          return result;
+        };
+
+      var arr = [12, 5, 8];
+
+      var arr2 = arr.map(function (item) {
+        return item * 2;
+      });
+
+      alert(arr2);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      function show(a, b) {
+        alert("this是：" + this + "\n" + "a：" + a + "\n" + "b：" + b);
+      }
+
+      show.call(10, "aaaa", "bbbb");
+      // show('aaaa', 'dasfasf');
+    </script>
+  </head>
+  <body></body>
+</html>

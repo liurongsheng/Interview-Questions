@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      // 'use strict';
+
+      function show() {
+        console.log(this);
+      }
+
+      let arr = [1, 2, 3];
+      arr.show = show;
+      document.onclick = show;
+
+      arr.show(); // 输出 [1,2,3]
+      show(); // 非严格模式下，输出 window 对象
+      // 点击的时候输出 [object HTMLDocument]
+    </script>
+  </head>
+  <body></body>
+</html>

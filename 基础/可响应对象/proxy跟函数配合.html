@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      //真实数据
+      let _data = function (a, b, c) {
+        console.log(a + b + c);
+      };
+
+      let p = new Proxy(_data, {
+        apply(fn, thisValue, args) {
+          if (args.length != 3) {
+            throw new Error("argument length must be 3");
+          } else {
+            fn(...args);
+          }
+        },
+      });
+
+      p(23, 5, 6);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+      function show(a, b) {
+        alert(this);
+      }
+
+      let arr1 = [1, 2, 3];
+      document.onclick = show.bind(arr1); // 输出 [1, 2, 3]
+    </script>
+  </head>
+  <body></body>
+</html>

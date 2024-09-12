@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      class A {
+        constructor() {
+          this.name = "blue";
+        }
+
+        show() {
+          alert(this.name);
+          alert(this.age); // b.show(); 可以输出18
+        }
+      }
+
+      class B extends A {
+        constructor() {
+          super();
+
+          this.age = 18;
+        }
+      }
+
+      let b = new B();
+      b.show();
+    </script>
+  </body>
+</html>

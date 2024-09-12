@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // 真实数据
+      let A = new Proxy(
+        class {
+          render() {
+            console.log("渲染");
+          }
+        },
+        {
+          construct(cls, args) {
+            let obj = new cls();
+
+            return new Proxy(obj, {
+              set(data, name, val) {
+                data[name] = val;
+
+                obj.render();
+              },
+            });
+          },
+        }
+      );
+
+      let a = new A();
+    </script>
+  </body>
+</html>

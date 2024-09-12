@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      class App {
+        constructor(options) {
+          let data = options.data();
+
+          for (let name in data) {
+            Object.defineProperty(this, name, {
+              configurable: true,
+              get() {
+                return data[name];
+              },
+              set(val) {
+                data[name] = val;
+
+                console.log(`有人设置数据了 ${name}`);
+              },
+            });
+          }
+        }
+      }
+
+      let app = new App({
+        root: "#div1",
+        data() {
+          return {
+            a: 12,
+            b: 5,
+            name: "blue",
+            arr: [1, 2, 3],
+            data: {
+              a: 12,
+              b: 5,
+            },
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

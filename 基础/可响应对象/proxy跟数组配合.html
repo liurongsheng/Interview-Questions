@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // 真实数据
+      let _data = [1, 2, 3];
+
+      let p = new Proxy(_data, {
+        get(data, name) {
+          console.log("get");
+          return data[name];
+        },
+        set(data, name, val) {
+          console.log("set");
+          data[name] = val;
+        },
+      });
+    </script>
+  </body>
+</html>

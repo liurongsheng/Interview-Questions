@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    .box {border:1px solid red;}
+    </style>
+  </head>
+  <body>
+
+    <script>
+    //写
+    const Cmp=new Proxy(class {
+      constructor(name){
+        this.name=name;
+
+        this.el=document.createElement('div');
+        this.el.className='box';
+        document.body.appendChild(this.el);
+
+        this.render();
+      }
+
+      render(){
+        this.el.innerHTML=this.name;
+      }
+    }, {
+      construct(cls, args){
+        let obj=new cls(...args);
+
+        return new Proxy(obj, {
+          set(obj, name, val){
+            obj[name]=val;
+
+            obj.render();   //
+          }
+        });
+      }
+    });
+
+    //使用类
+    let cmp=new Cmp('blue');
+
+
+    </script>
+  </body>
+</html>
