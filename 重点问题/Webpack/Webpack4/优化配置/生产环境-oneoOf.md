@@ -2,9 +2,9 @@
 
 在配置 loader 的 modules.rules 中，正常情况下一种类型的文件只会被一个 loader 处理，但是一个文件会被所有的 loader 处理一遍
 
-正常情况下文件已经匹配了一个loader，后续的 loader 就不需要处理了，这样可以提升构建速度
+正常情况下文件已经匹配了一个 loader，后续的 loader 就不需要处理了，这样可以提升构建速度
 
-现在我们对js进行了两个loader，一个loader是eslint，另一个loader是babel，使用了 oneOf 后，需要把 eslint 放在 oneOf 的配置之前
+现在我们对 js 进行了两个 loader，一个 loader 是 eslint，另一个 loader 是 babel，使用了 oneOf 后，需要把 eslint 放在 oneOf 的配置之前
 
 ```js
 const { resolve } = require("path");

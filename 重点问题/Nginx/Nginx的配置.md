@@ -47,7 +47,7 @@ server {
     # 路由所有请求到后端服务器
     location / {
         echo 'hello nginx';
-        proxy_pass http://server_list;
+        proxy_pass http://server_list; # server_list 是一个 upstream 的名字
         index index.html index.htm;
     }
 }

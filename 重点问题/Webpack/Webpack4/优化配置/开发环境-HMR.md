@@ -81,7 +81,7 @@ module.exports = {
 
 ## js 类型支持 HMR
 
-入口文件中的HMR兼容代码
+入口文件中的 HMR 兼容代码
 
 ```js
 if (module.hot) {

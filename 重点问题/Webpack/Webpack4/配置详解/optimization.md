@@ -1,37 +1,37 @@
 # optimization
 
 ```js
-const { resolve } = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
+const { resolve } = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  entry: './src/js/index.js',
+  entry: "./src/js/index.js",
   output: {
-    filename: 'js/[name].[contenthash:10].js',
-    path: resolve(__dirname, 'build'),
-    chunkFilename: 'js/[name].[contenthash:10]_chunk.js'
+    filename: "js/[name].[contenthash:10].js",
+    path: resolve(__dirname, "build"),
+    chunkFilename: "js/[name].[contenthash:10]_chunk.js",
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+      },
+    ],
   },
   plugins: [new HtmlWebpackPlugin()],
-  mode: 'production',
+  mode: "production",
   resolve: {
     alias: {
-      $css: resolve(__dirname, 'src/css')
+      $css: resolve(__dirname, "src/css"),
     },
-    extensions: ['.js', '.json', '.jsx', '.css'],
-    modules: [resolve(__dirname, '../../node_modules'), 'node_modules']
+    extensions: [".js", ".json", ".jsx", ".css"],
+    modules: [resolve(__dirname, "../../node_modules"), "node_modules"],
   },
   optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: "all",
       // 默认值，可以不写~
       /* minSize: 30 * 1024, // 分割的chunk最小为30kb
       maxSiza: 0, // 最大没有限制
@@ -62,7 +62,7 @@ module.exports = {
     // 将当前模块的记录其他模块的hash单独打包为一个文件 runtime
     // 解决：修改a文件导致b文件的contenthash变化
     runtimeChunk: {
-      name: entrypoint => `runtime-${entrypoint.name}`
+      name: (entrypoint) => `runtime-${entrypoint.name}`,
     },
     minimizer: [
       // 配置生产环境的压缩方案：js和css
@@ -72,9 +72,9 @@ module.exports = {
         // 开启多进程打包
         parallel: true,
         // 启动source-map
-        sourceMap: true
-      })
-    ]
-  }
+        sourceMap: true,
+      }),
+    ],
+  },
 };
 ```

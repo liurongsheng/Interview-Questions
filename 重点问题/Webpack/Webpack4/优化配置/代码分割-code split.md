@@ -97,7 +97,7 @@ module.exports = {
   通过js代码，让某个文件被单独打包成一个chunk
   import动态导入语法：能将某个文件单独打包，webpackChunkName: 'test' 指定打包的名字，没有配置的话，默认是自动生成的
 */
-import(/* webpackChunkName: 'test' */'./test')
+import(/* webpackChunkName: 'test' */ "./test")
   .then(({ mul, count }) => {
     // 文件加载成功~
     // eslint-disable-next-line
@@ -105,6 +105,6 @@ import(/* webpackChunkName: 'test' */'./test')
   })
   .catch(() => {
     // eslint-disable-next-line
-    console.log('文件加载失败~');
+    console.log("文件加载失败~");
   });
 ```

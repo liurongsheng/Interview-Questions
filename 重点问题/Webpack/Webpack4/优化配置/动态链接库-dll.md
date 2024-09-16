@@ -1,6 +1,12 @@
 # 动态链接库 dll
 
-有类似 externals 的功能，排除指定的包。
+DLL 全称是 动态链接库，是为软件在 winodw 种实现共享函数库的一种实现方式，而 Webpack 也内置了 DLL 的功能，为的就是可以共享，不经常改变的代码，抽成一个共享的库。这个库在之后的编译过程中，会被引入到其他项目的代码中
+
+使用 webpack 自带的 DllReferencePlugin 插件对 mainfest.json 映射文件进行分析获取要使用的 DLL 库
+
+然后再通过 AddAssetHtmlPlugin 插件，将我们打包的 DLL 库引入到 Html 模块中
+
+有类似 externals 的功能，排除指定的包
 
 externals 彻底不打包，需要使用 cdn 引入
 
@@ -13,7 +19,7 @@ dll 需要打包一次第三方库，后续就不需要重复打包
 ## 实际使用
 
 `webpack --config webpack.dll.js` // 先打包 dll 文件
-`webpack` // 正常使用，加载dll文件，这样打包速度会快很多
+`webpack` // 正常使用，加载 dll 文件，这样打包速度会快很多
 
 ## webpack.config.js
 

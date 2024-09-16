@@ -1,24 +1,24 @@
 # source-map
 
 - 速度快(eval>inline>cheap)
-- eval source-map都在eval中，加快构建速度
+- eval source-map 都在 eval 中，加快构建速度
 - cheap 只精确到行，加快构建速度
-- inline 使用内联的形式，不生成map文件，加快构建速度
+- inline 使用内联的形式，不生成 map 文件，加快构建速度
 - module 会把 loader 的 source map 加入
 
-开发环境 eval-source-map  / eval-cheap-module-souce-map
+开发环境 eval-source-map / eval-cheap-module-souce-map
 
 生成环境 source-map / cheap-module-souce-map
 
 ```js
-const { resolve } = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { resolve } = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: ['./src/js/index.js', './src/index.html'],
+  entry: ["./src/js/index.js", "./src/index.html"],
   output: {
-    filename: 'js/built.js',
-    path: resolve(__dirname, 'build')
+    filename: "js/built.js",
+    path: resolve(__dirname, "build"),
   },
   module: {
     rules: [
@@ -26,56 +26,56 @@ module.exports = {
       {
         // 处理less资源
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
+        use: ["style-loader", "css-loader", "less-loader"],
       },
       {
         // 处理css资源
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
       {
         // 处理图片资源
         test: /\.(jpg|png|gif)$/,
-        loader: 'url-loader',
+        loader: "url-loader",
         options: {
           limit: 8 * 1024,
-          name: '[hash:10].[ext]',
+          name: "[hash:10].[ext]",
           // 关闭es6模块化
           esModule: false,
-          outputPath: 'imgs'
-        }
+          outputPath: "imgs",
+        },
       },
       {
         // 处理html中img资源
         test: /\.html$/,
-        loader: 'html-loader'
+        loader: "html-loader",
       },
       {
         // 处理其他资源
         exclude: /\.(html|js|css|less|jpg|png|gif)/,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          name: '[hash:10].[ext]',
-          outputPath: 'media'
-        }
-      }
-    ]
+          name: "[hash:10].[ext]",
+          outputPath: "media",
+        },
+      },
+    ],
   },
   plugins: [
     // plugins的配置
     new HtmlWebpackPlugin({
-      template: './src/index.html'
-    })
+      template: "./src/index.html",
+    }),
   ],
-  mode: 'development',
+  mode: "development",
   devServer: {
-    contentBase: resolve(__dirname, 'build'),
+    contentBase: resolve(__dirname, "build"),
     compress: true,
     port: 3000,
     open: true,
-    hot: true
+    hot: true,
   },
-  devtool: 'cheap-module-source-map'
+  devtool: "cheap-module-source-map",
 };
 
 /*
