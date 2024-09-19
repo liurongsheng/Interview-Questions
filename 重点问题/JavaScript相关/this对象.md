@@ -1,17 +1,51 @@
 # this 对象
 
-在绝大多数情况下，函数的调用方式决定了 this 的值(运行时绑定)
+在绝大多数情况下，函数的调用方式决定了 this 的值(运行时绑定，与执行上下文相关)
 
 this 关键字是函数运行时自动生成的一个内部对象，只能在函数内部使用，总指向调用它的对象
+
+| 调用方式          | 示例             | 函数中的 this 指向       |
+| :---------------- | :--------------- | :----------------------- |
+| 通过 new 调用     | new method()     | 新对象                   |
+| 直接调用          | method()         | 全局对象 window、 global |
+| 通过对象调用      | obj.method()     | 前面的对象               |
+| call、apply、bind | method.call(ctx) | 第一个参数               |
+
+```js
+function fn() {
+  console.log(this);
+}
+const newFn = fn.bind(3);
+new fn(); // fn {}
+fn(); // global
+new newFn(); // fn {}
+newFn(); // [Number: 3]
+console.log(newFn === fn); // false
+```
+
+```js
+function fn() {
+  console.log(this);
+  let n = 1;
+  const a = () => {
+    console.log(n);
+    console.log(this);
+  };
+  return a;
+}
+fn(); // 1, global
+```
+
+上面的示例，箭头函数的 n 是闭包中的 1，this 也是闭包中的 this
 
 ## 绑定规则
 
 根据不同的使用场合 this 有不同的值，主要分为下面几种情况
 
-- 默认绑定
-- 隐式绑定
 - new 绑定
 - 显示绑定
+- 隐式绑定
+- 默认绑定
 
 new 绑定优先级 > 显示绑定优先级> 隐式绑定优先级 > 默认绑定优先级
 
