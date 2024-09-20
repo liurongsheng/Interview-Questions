@@ -1,12 +1,12 @@
 # Redux
 
-Redux 是 JavaScript 的状态容器，提供了可预测的状态管理，React 中，状态就是 state
+Redux 是一个可预测状态管理容器，React 中，状态就是 state
 
 Redux 在实现层面并没有按照 Flux 那一套来，但 Redux 在设计思想上确实和 Flux 一脉相承，可以认为 Redux 是 Flux 的一种实现形式
 
 Flux 并不是一个具体的框架，它是一套由 Facebook 技术团队提出的应用架构这套架构约束的是**应用处理数据的模式**
 
-## Flux 的实现，4个部分
+## Flux 的实现，4 个部分
 
 - View 视图层，用户界面，可以是任何形式实现出来的
 - Action 动作，可以理解为视图层发出的消息，会触发应用状态的改变
@@ -114,105 +114,7 @@ store.dispatch(action4);
 
   通过 reducer 将 state 和 action 联系在一起，并且返回一个新的 state
 
-## React-Redux
-
-React-Redux 是 React 专用的库
-
-- Provider
-- connect
-
-connect 本身是一个函数，返回一个高阶组件 mapStateToProps mapDispatchProps
-
-```js
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { Provider } from "react-redux";
-import store from "./store";
-
-ReactDOM.render(
-  // 把provider包裹在根组件的外层，可以使得所有的子组件都可以拿到state
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
-```
-
-```js
-import { connect } from "react-redux";
-
-function User(props) {
-  return (
-    <div>
-      <hr />
-      <h2>余额:{props.money}</h2>
-      <button onClick={(e) => props.subNumber(1)}>支付1</button>
-      <button onClick={(e) => props.makeMoney(50)}>赚50</button>
-    </div>
-  );
-}
-
-// 是一个函数，用于建立组件跟store的state的映射关系
-// react中的state和store中的state不是同一个概念，一个是组件的状态，一个是store的数据
-const mapStateToProps = (state, props) => {
-  console.log(state, props); // 建立一个映射关系 组件的state和store的state建立的映射关系
-  return {
-    money: state.money,
-    name: props.info,
-    userinfo: state.userinfo,
-  };
-};
-
-// 用于建立组件跟 store.dispatch 的映射关系
-const mapDispatchToProps = (dispatch) => {
-  return {
-    subNumber: (num) => {
-      dispatch(subAction(num));
-    },
-    makeMoney: (num) => {
-      dispatch(addAction(num));
-    },
-  };
-};
-
-// connect起来一个连接作用，连接组件与 store
-export default connect(mapStateToProps, mapDispatchToProps)(User);
-// mapStateToProps，mapDispatchToProps 作用就是把state和dispacth都转成了当前的组件的props属性，供当前的组件或者子组件来使用
-```
-
-## redux-thunk
-
-redux 推荐的网络请求中间件，这个中间件的目的就是在 dispacth 和 action 最终道道 reducer 之间扩展一些代码
-
-所谓的中间件，其实就是一个函数，函数的作用是：增强或者是扩展功能。可以在我们请求和响应之间做一些操作
-
-```js
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import reducer from "./reducer";
-
-/*  
-applyMiddleware是redux的原生方法
-将所有的中间件组成一个数组，依次执行，返回一个store对象
-*/
-const storeEnhancer = applyMiddleware(thunk);
-/* 
-storeEnhancer增强型的store
-*/
-const store = createStore(reducer, storeEnhancer);
-export default store;
-
-
-// action 请求
-// 通过指定的中间件，action创建除了返回对象以外还可以返回一个函数
-export const getHomeAction = async (dispatch) => {
-  const { data } = await axios.get('/xxx');
-  dispatch(getUserInfoAction(data.userinfo));
-};
-```
-
-## Redux 源码
+## Redux 源码解读
 
 - types // 类型声明
 - utils // 工具方法库
@@ -237,7 +139,7 @@ const store = createStore(
 createStore 接受三个参数，reducer、preloadedState、enhancer
 
 - 调用 createStore
-- 处理没有传入初始状态(前两个入参都为function)的情况
+- 处理没有传入初始状态(前两个入参都为 function)的情况
 - 若 enhancer 不为空，则用 enhancer 包装 createStore
 - 定义内部变量
 - 定义 ensureCanMutateNextListeners 方法该方法用于确保 currentListeners 与 nextListeners 不指向同一个引用
@@ -249,15 +151,15 @@ createStore 接受三个参数，reducer、preloadedState、enhancer
 - 定义 observable 方法(此处可忽略)
 - 将步骤 6~11 中定义的方法放进 store 对象中返回
 
-Redux工作流的核心是 dispatch 动作
+Redux 工作流的核心是 dispatch 动作
 
 dispatch 这个动作刚好能把 action、reducer 和 store 这三位“主角”给串联起来
 
 - 调用 dispatch，入参为 action 对象
 - 前置校验
-- “上锁”:将isDispatching 置为 true，避免套娃，避免 dispatch 和 reducer 两者反复调用
+- “上锁”:将 isDispatching 置为 true，避免套娃，避免 dispatch 和 reducer 两者反复调用
 - 调用 reducer，计算新的 state
-- “解锁”:将isDispatching 置为 false
+- “解锁”:将 isDispatching 置为 false
 - 触发订阅
 - 返回 action
 
@@ -276,7 +178,7 @@ subscribe 并不是一个严格必要的方法只有在需要监听状态的变�
 
 为什么会有 currentListeners 和 nextListeners 这两个 listeners 数组?
 
-- currentListeners数组用于确保监听函数执行过程的稳定性
+- currentListeners 数组用于确保监听函数执行过程的稳定性
 
 currentListeners 就是为了记录下当前正在工作中的 listeners 数组的引用将它与可能发生改变的 nextListeners 区分开来以确保监听函数在执行过程中的稳定性
 
@@ -290,9 +192,9 @@ Redux 源码中只有同步操作
 
 dispatch 的入参从 action 对象变成了一个函数 action 入参必须是一个对象
 
-Redux中间件是如何与 Redux 主流程相结合的?
+Redux 中间件是如何与 Redux 主流程相结合的?
 
-action --> middleware 1 --> middleware 2  --> middleware 3… --> dispatch --> reducer --> nextState
+action --> middleware 1 --> middleware 2 --> middleware 3… --> dispatch --> reducer --> nextState
 
 - 中间件的执行时机即 action 被分发之后，reducer 触发之前
 - 中间件的执行前提即 applyMiddleware 将会对 dispatch 函数进行改写，使得 dispatch 在触发 reducer 之前会首先执行对 Redux 中间件的链式调用
@@ -301,12 +203,12 @@ applyMiddleware 是如何与 createStore 配合工作的?
 
 dispatch 函数是如何被改写的?
 
-- 外层函数的主要作用是获取 dispatch、getstate 这两个 API而真正的中间件逻辑是在内层函数中包裹的
-- 待middlewares.map(middleware =>middleware(middlewareAPl)) 执行完毕后，内层函数会被悉数提取至 chain 数组
+- 外层函数的主要作用是获取 dispatch、getstate 这两个 API 而真正的中间件逻辑是在内层函数中包裹的
+- 待 middlewares.map(middleware =>middleware(middlewareAPl)) 执行完毕后，内层函数会被悉数提取至 chain 数组
 
 compose 源码解读：函数的合成
 
-函数合成(组合函数)并不是 Redux的专利而是函数式编程中一个通用的概念
+函数合成(组合函数)并不是 Redux 的专利而是函数式编程中一个通用的概念
 
 // 若有多个函数，那么调用 reduce 方法来实现函数的组合
 
