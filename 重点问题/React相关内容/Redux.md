@@ -31,9 +31,26 @@ Flux 的核心特征是单向数据流，在单项数据流下，状态的变化
 - Action，是“动作”的意思，它是对变化的描述
 - Reducer，它负责对变化进行分发和处理，最终将新的数据返回给 Store
 
+## Redux 核心原理
+
+- 将应用的状态统一放到 state 中，由 store 来管理 state
+- reducer 的作用是返回一个新的 state 去更新 store 中对应的 state
+- 按 redux 的原则，UI 层每一次状态的改变都应通过 action 去触发，action 传入对应的 reducer 中，
+  reducer 返回一个新的 state 更新 store 中存放的 state，这样就完成了一次状态的更新
+- subscribe 是为 store 订阅监听函数，这些订阅后的监听函数是在每一次 dipatch 发起后依次执行
+- 可以添加中间件对提交的 dispatch 进行重写
+
+## Redux 的核心 API
+
+- createStore 创建 Store，接受 reducer 作为参数
+- bindActionCreators.ts // 工具性质，绑定 store.dispatch 和 action 的关系
+- combineReducers.ts // 工具性质，合并多个 reducer
+- applyMiddleware.ts // 洋葱模型的中间件，介于 dispatch 和 action 之间，重写 dispatch
+- compose.ts // 工具性质，整合多个中间件，接受到的函数从右向左组合
+
 ## Redux 工作流
 
-组件想要获取 state , 用 ActionCreator 创建一个请求给 store，Store 借助 reducer 确认该 state 的状态，Reducer 会返回给 store 一个结果，store 再把这个 state 转给组件
+组件想要获取 state, 用 ActionCreator 创建一个请求给 store，Store 借助 reducer 确认该 state 的状态，Reducer 会返回给 store 一个结果，store 再把这个 state 转给组件
 
 ## 如何使用
 
@@ -50,8 +67,8 @@ const initState = {
   money: 0,
 };
 
-// redux有三大巨头
-// reducer 去连接 store 和 action，原来的state 和 action 在默认的情况下，state是没有值的，可以传递一个默认值
+// redux 有三大巨头
+// reducer 去连接 store 和 action，原来的 state 和 action 在默认的情况下，state 是没有值的，可以传递一个默认值
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -72,7 +89,8 @@ const reducer = (state = initState, action) => {
 };
 
 // store 保存状态，创建一个store对象即可，创建 Store 的时候必须创建 Reducecer)
-// 通过 store.getState() 来获取当前的store
+// 通过 store.getState() 来获取当前的 store
+// function createStore (reducer, enhancer) {...} // reducer 和 enhancer 中间件 是可选的参数
 const store = redux.createStore(reducer);
 
 // store action reducer
@@ -84,12 +102,13 @@ const action3 = { type: "ADD_MONEY", num: 15 };
 const action4 = { type: "SUB_MONEY", num: 10 };
 
 // 派发 action 之前可以订阅 store 的修改，监听 store 的变化
+// subscribe 中的内容作为监听函数数组内容
 store.subscribe(() => {
   console.log("store被修改了");
   console.log(`count:${store.getstate().money}}`);
 });
 
-// 派发 action
+// 派发 action，dispatch 执行后会遍历监听函数数组，依次执行
 store.dispatch(action1);
 store.dispatch(action2);
 store.dispatch(action3);
@@ -118,10 +137,10 @@ store.dispatch(action4);
 
 - types // 类型声明
 - utils // 工具方法库
-- applyMiddleware.ts // 中间件模块
-- bindActionCreators.ts // 工具性质，将 actionCreator 和 dispatch 合并
-- combineReducers.ts // 工具性质，将多个 reducer 合并起来
-- compose.ts // 工具性质，接受到的函数从右向左组合
+- applyMiddleware.ts // 洋葱模型的中间件，介于 dispatch 和 action 之间，重写 dispatch
+- bindActionCreators.ts // 工具性质，绑定 store.dispatch 和 action 的关系
+- combineReducers.ts // 工具性质，合并多个 reducer
+- compose.ts // 工具性质，整合多个中间件，接受到的函数从右向左组合
 - createstore.ts // 核心
 - index.ts // 入口文件
 
@@ -225,3 +244,11 @@ classA 继承 class B，class B 继承 classC 这样一层一层将逻辑向下�
 在面向对象中，当要为某几个类追加一段共同的逻辑时，可以通过修改它们共同的父类来实现，这无疑会使得公共类越来越臃肿
 
 面向切面思想在很大程度上提升了我们组织逻辑的灵活度与干净度，帮助我们规避掉了逻辑冗余、逻辑耦合这类问题
+
+## 简单描述 Redux
+
+- Redux store 是一个保存和管理应用程序状态的 state。 可以使用 Redux 对象中的 createStore() 来创建一个 redux store。 此方法将 reducer 函数作为必需参数。
+
+声明一个 store 变量并把它分配给 createStore() 方法，然后把 reducer 作为一个参数传入即可
+
+Redux store 对象提供了几种与之交互的方法， 比如，可以使用 getState() 方法检索 Redux store 对象中保存的当前 state
