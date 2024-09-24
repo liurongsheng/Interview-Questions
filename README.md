@@ -58,3 +58,5 @@ http-server -p 8888
 ## 书籍
 
 [前端书籍](https://gitee.com/mewcoder/fe-book)
+
+[前端渡劫秘籍](https://www.yuque.com/xiumubai/doc)
