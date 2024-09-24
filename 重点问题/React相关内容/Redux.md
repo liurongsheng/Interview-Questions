@@ -247,8 +247,67 @@ classA 继承 class B，class B 继承 classC 这样一层一层将逻辑向下�
 
 ## 简单描述 Redux
 
-- Redux store 是一个保存和管理应用程序状态的 state。 可以使用 Redux 对象中的 createStore() 来创建一个 redux store。 此方法将 reducer 函数作为必需参数。
+- 创建一个 store 的公共数据区域
 
-声明一个 store 变量并把它分配给 createStore() 方法，然后把 reducer 作为一个参数传入即可
+```js
+import { createStore } from "redux"; // 引入一个第三方的方法
+const store = createStore(); // 创建数据的公共存储区域（管理员）
+```
 
-Redux store 对象提供了几种与之交互的方法， 比如，可以使用 getState() 方法检索 Redux store 对象中保存的当前 state
+创建 reduecer，本质就是一个纯函数，接收两个参数 state，action，返回 state
+
+纯函数：一个函数的返回结果只依赖于它的参数，并且在执行过程里面没有副作用，我们就把这个函数叫做纯函数
+
+```js
+// 设置默认值
+const initialState = {
+  counter: 0,
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_MONEY:
+      return { ...state, money: state.money + action.num };
+    case SUB_MONEY:
+      return { ...state, money: state.money - action.num };
+
+    case INCREMENT:
+      return { ...state, money: state.money + 1 };
+
+    case DECREMENT:
+      return { ...state, money: state.money - 1 };
+    // 如果没有匹配到任何的action就直接返回state
+    default:
+      return state;
+  }
+};
+```
+
+store 和 reducer 关联，使用 createStore
+
+```js
+const store = createStore(reducer);
+```
+
+createStore 接受三个参数，reducer、preloadedState(初始的 state)、enhancer(中间件)
+
+createStore 关键实现
+
+- 定义 getstate 方法，该方法用于获取 store 里边所有的数据内容
+- 定义 subscribe 方法，该方法用于注册 listeners (订阅监听函数)
+- 定义 dispatch 方法，该方法用于派发 action、调用 reducer 并触发订阅
+
+```js
+// 派发 action 之前可以订阅 store 的修改，监听 store 的变化
+// subscribe 中的内容作为监听函数数组内容
+store.subscribe(() => {
+  console.log("store 被修改了");
+  console.log(`count:${store.getstate().money}}`);
+});
+```
+
+```js
+// 派发 action，dispatch 执行后会遍历监听函数数组，依次执行
+store.dispatch(action1);
+store.dispatch(action2);
+```

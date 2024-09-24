@@ -114,9 +114,9 @@ Vue2 Vue3 为了实现数据响应式，它都需要把数据包裹一层，即�
 这个在 Vue2 中并不明显，但在 Vue3 setup script 中 JS 操作较多的话，就会遇到这种问题
 
 ```js
-const raw = {}
-const proxy = reactive(raw)
-console.log(proxy === raw) // false 代理对象和原始对象不是全等的
+const raw = {};
+const proxy = reactive(raw);
+console.log(proxy === raw); // false 代理对象和原始对象不是全等的
 ```
 
 Vue3 的 ref 和 reactive 两种响应式的类型也不一样，为此 Vue 设计了很多 API 来进行各种数据类型的判断和转换，
@@ -306,8 +306,8 @@ Vue 是双向数据绑定，修改数据自动更新视图；而 React 单向数
 
   useEffect 其实有两个参数：
 
-    第一个参数是函数，即副作用要执行的具体内容，必填
-    第二个参数是依赖项数组，选填
+  第一个参数是函数，即副作用要执行的具体内容，必填
+  第二个参数是依赖项数组，选填
 
   ```js
   const [page, setPage] = useState(0);
