@@ -36,7 +36,7 @@ Promise 构造函数接受一个函数作为参数，该函数的两个参数分
 ## 构造函数方法
 
 - all(), 将多个 Promise 实例包装成一个新的 Promise 实例
-- race()
+- race()，多个 Promise 只要有其中一个 Promise 完成或失败就完成
 - allSettled()
 - resolve()
 - reject()

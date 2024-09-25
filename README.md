@@ -27,7 +27,15 @@
 
 ---
 
-## 题库
+## W3C 规范
+
+制定流程要求每个规范都要经过以下五个阶段
+
+- 工作草案（WD，Working Draft）
+- 最终工作草案（LC/LCWD，Last Call Working Draft）
+- 候选推荐（CR，Candidate Recommendation）
+- 提议推荐（PR，Proposed Recommendation）
+- 推荐标准（REC，Recommendation）
 
 ## 工具
 
