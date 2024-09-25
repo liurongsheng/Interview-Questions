@@ -1,4 +1,4 @@
-# 知识点：虚拟DOM
+# 知识点：虚拟 DOM
 
 virtual dom 是 vue 和 react 的核心，本文档简写 vdom。
 
@@ -24,7 +24,7 @@ diff 算法的实现流程
 1. DOM 操作是昂贵的，JS 运行效率高，利用 JS 模拟 DOM 结构
 2. 尽量减少 DOM 操作，而不是"推到重来"
 3. 项目越复杂，影响越严重，将 DOM 对比操作放在 JS 层，提高效率
-vdom 可以解决这些问题
+   vdom 可以解决这些问题
 
 ```
 // DOM 结构
@@ -33,7 +33,9 @@ vdom 可以解决这些问题
   <li class='item'>Item 2</li>
 </ul>
 ```
+
 利用 JS 模拟 DOM 实现
+
 ```
 {
   tag:'ul',
@@ -53,10 +55,12 @@ vdom 可以解决这些问题
   ]
 }
 ```
+
 浏览器最耗费性能的就是 DOM 操作，而执行 JS 的速度确实非常快的。
 宁愿操作一万行 JS 代码，不执行一次 DOM 操作，所以 vdom 是有存在价值的。
 
 需求场景
+
 ```
 <div id="container"></div>
 <button id="btn-change">change</button>
@@ -64,33 +68,34 @@ vdom 可以解决这些问题
 <script type="text/javascript">
   var data = [
   {
-    name:'张三', 
-    age:'25', 
-    address:'深圳', 
+    name:'张三',
+    age:'25',
+    address:'深圳',
   },{
-    name:'李四', 
-    age:'26', 
-    address:'广州', 
+    name:'李四',
+    age:'26',
+    address:'广州',
   },{
-    name:'王五', 
-    age:'26', 
-    address:'上海', 
+    name:'王五',
+    age:'26',
+    address:'上海',
   }]
 <script>
 ```
 
-使用jQuery实现
+使用 jQuery 实现
+
 ```
 // 渲染函数
 function render(data){
   var $container = $('#container')
   // 清空现有内容，重要
   $container.html('');
-  
+
   // 拼接 table
   var $table = $('<table>')
   $table.append($('<tr><td>name</td><td>age</td><td>address</td></tr>'))
-  
+
   data.forEach(function(item){
     $table.append($('<tr><td>' + item.name + '</td><td>' + item.age + '</td><td>' +
       item.address + '</td></tr>'
@@ -109,7 +114,9 @@ $('#btn-change').click(function(){
 // 初始化时候渲染
 render(data)
 ```
+
 遍历浏览器默认创建的 DOM 节点属性，可以看到属性非常的多，对比 JS 模拟，JS 相当的简单
+
 ```
 var div = document.createElement('div');
 var item, result = '';
@@ -120,13 +127,16 @@ console.log(result)
 ```
 
 ## vdom 如何应用，核心 API 是什么
+
 snabbdom 开源 vdom 库，这里 vdom 是一类技术实现。不限于 vue 和 react，vue2.0 借鉴了 snabbdom 的代码
 
-vdom 的核心API
-- h 函数 
-- patch 函数 
+vdom 的核心 API
 
-h函数返回vnode节点
+- h 函数
+- patch 函数
+
+h 函数返回 vnode 节点
+
 ```
 {
   tag:'ul',
@@ -151,14 +161,16 @@ var vnode = h('ul#list',{},[
   h('li.item',{},'Item 2'),
 ])
 ```
-patch函数渲染
+
+patch 函数渲染
 `patch(container, vnode);`
-第一渲染的时候是把vnode一次性塞到空的容器中
+第一渲染的时候是把 vnode 一次性塞到空的容器中
 
 `patch(vnode, newVnode);`
 通过复杂的对比只找出需要更新的部分，尽量减少更新
 
 ## diff 算法去繁就简介绍
+
 diff 算法非常复杂，实现难度很大，源码量很大。优秀的 vdom 库没有几个
 去繁就简，讲明白核心流程，不关心细节
 
@@ -168,10 +180,12 @@ diff 算法非常复杂，实现难度很大，源码量很大。优秀的 vdom 
 4. 核心逻辑，createElement 和 updateChildren
 
 ### vdom 为何使用 diff 算法
+
 - DOM 操作昂贵，尽量减少
 - 找出本次 DOM 必须更新的节点来更新，其他的不更新
 - 这个找出的过程，就需要 diff 算法
 
 ### diff 实现过程
+
 - patch(container, vnode) // 初始化直接插入容器
-- patch(vnode, newVnode)  // 新旧对比的 vnode
+- patch(vnode, newVnode) // 新旧对比的 vnode

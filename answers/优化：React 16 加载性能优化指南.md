@@ -23,11 +23,8 @@ html 中提供一个 root 节点
 
 把应用挂载到这个节点上
 
-```
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root')
-);
+```js
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 复制代码这样的模式，使用 webpack 打包之后，一般就是三个文件：
@@ -52,7 +49,7 @@ ReactDOM.render(
 
 当然一行没有样式的 "Loading..." 文本可能会让设计师想揍你一顿，为了避免被揍，我们可以在把 root 节点内的内容画得好看一些：
 
-```
+```js
 <div id="root">
     <!-- 这里画一个 SVG -->
 </div>
@@ -63,46 +60,46 @@ ReactDOM.render(
 实际业务中肯定是有很多很多页面的，每个页面都要我们手动地复制粘贴这么一个 loading 态显然太不优雅了，
 这时我们可以考虑使用 html-webpack-plugin 来帮助我们自动插入 loading。
 
-```
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
+```js
+var HtmlWebpackPlugin = require("html-webpack-plugin");
+var path = require("path");
 
 // 读取写好的 loading 态的 html 和 css
 var loading = {
-    html: fs.readFileSync(path.join(__dirname, './loading.html')),
-    css: '<style>' + fs.readFileSync(path.join(__dirname, './loading.css')) + '</style>'
-}
+  html: fs.readFileSync(path.join(__dirname, "./loading.html")),
+  css:
+    "<style>" +
+    fs.readFileSync(path.join(__dirname, "./loading.css")) +
+    "</style>",
+};
 
 var webpackConfig = {
-  entry: 'index.js',
+  entry: "index.js",
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'index_bundle.js'
+    path: path.resolve(__dirname, "./dist"),
+    filename: "index_bundle.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'xxxx.html',
-      template: 'template.html',
-      loading: loading
-    })
-  ]
+      filename: "xxxx.html",
+      template: "template.html",
+      loading: loading,
+    }),
+  ],
 };
 ```
 
 然后在模板中引用即可：
 
-```
-<!DOCTYPE html>
+```html
 <html lang="en">
-    <head>
-        <%= htmlWebpackPlugin.options.loading.css %>
-    </head>
+  <head>
+    <%= htmlWebpackPlugin.options.loading.css %>
+  </head>
 
-    <body>
-        <div id="root">
-            <%= htmlWebpackPlugin.options.loading.html %>
-        </div>
-    </body>
+  <body>
+    <div id="root"><%= htmlWebpackPlugin.options.loading.html %></div>
+  </body>
 </html>
 ```
 
@@ -117,13 +114,15 @@ var webpackConfig = {
 插件在 dist 目录中开启一个静态服务器，并且使用无头浏览器（puppeteer）访问对应的路径，执行 JS，抓取对应路径的 html。
 把抓到的内容写入 html，这样即使没有做服务器端渲染，也能达到跟服务器端渲染几乎相同的作用（不考虑动态数据的话）
 
-```
+```js
 plugins: [
-  new PrerenderSpaPlugin(
-    path.join(__dirname, 'dist'),
-    [ '/', '/products/1', '/products/2', '/products/3']
-  )
-]
+  new PrerenderSpaPlugin(path.join(__dirname, "dist"), [
+    "/",
+    "/products/1",
+    "/products/2",
+    "/products/3",
+  ]),
+];
 ```
 
 #### 1.4. 除掉外链 css
