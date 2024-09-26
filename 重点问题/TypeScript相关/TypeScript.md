@@ -422,10 +422,6 @@ let person = new Person();
 console.log(person.age); // 18
 ```
 
-## interface 和 type 的区别
-
-最大的区别在于，interface 只能用于定义对象类型，而 type 的声明方式除了对象之外还可以定义交叉、联合、原始类型等，类型声明的方式适用范围显然更加广泛
-
 ## 命名空间
 
 TypeScript 与 ECMAScript 2015 一样，任何包含顶级 import 或者 export 的文件都被当成一个模块
